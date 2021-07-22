@@ -1,43 +1,43 @@
 # Clean Code PHP
 
-## Table of Contents
+## Tabella dei contenuti
 
-  1. [Introduction](#introduction)
-  2. [Variables](#variables)
-     * [Use meaningful and pronounceable variable names](#use-meaningful-and-pronounceable-variable-names)
-     * [Use the same vocabulary for the same type of variable](#use-the-same-vocabulary-for-the-same-type-of-variable)
-     * [Use searchable names (part 1)](#use-searchable-names-part-1)
-     * [Use searchable names (part 2)](#use-searchable-names-part-2)
-     * [Use explanatory variables](#use-explanatory-variables)
-     * [Avoid nesting too deeply and return early (part 1)](#avoid-nesting-too-deeply-and-return-early-part-1)
-     * [Avoid nesting too deeply and return early (part 2)](#avoid-nesting-too-deeply-and-return-early-part-2)
-     * [Avoid Mental Mapping](#avoid-mental-mapping)
-     * [Don't add unneeded context](#dont-add-unneeded-context)
-  3. [Comparison](#comparison)
-     * [Use identical comparison](#use-identical-comparison)
-     * [Null coalescing operator](#null-coalescing-operator)
-  4. [Functions](#functions)
-     * [Use default arguments instead of short circuiting or conditionals](#use-default-arguments-instead-of-short-circuiting-or-conditionals)
-     * [Function arguments (2 or fewer ideally)](#function-arguments-2-or-fewer-ideally)
-     * [Function names should say what they do](#function-names-should-say-what-they-do)
-     * [Functions should only be one level of abstraction](#functions-should-only-be-one-level-of-abstraction)
-     * [Don't use flags as function parameters](#dont-use-flags-as-function-parameters)
-     * [Avoid Side Effects](#avoid-side-effects)
-     * [Don't write to global functions](#dont-write-to-global-functions)
-     * [Don't use a Singleton pattern](#dont-use-a-singleton-pattern)
-     * [Encapsulate conditionals](#encapsulate-conditionals)
-     * [Avoid negative conditionals](#avoid-negative-conditionals)
-     * [Avoid conditionals](#avoid-conditionals)
-     * [Avoid type-checking (part 1)](#avoid-type-checking-part-1)
-     * [Avoid type-checking (part 2)](#avoid-type-checking-part-2)
-     * [Remove dead code](#remove-dead-code)
-  5. [Objects and Data Structures](#objects-and-data-structures)
-     * [Use object encapsulation](#use-object-encapsulation)
-     * [Make objects have private/protected members](#make-objects-have-privateprotected-members)
-  6. [Classes](#classes)
-     * [Prefer composition over inheritance](#prefer-composition-over-inheritance)
-     * [Avoid fluent interfaces](#avoid-fluent-interfaces)
-     * [Prefer final classes](#prefer-final-classes)
+  1. [Introduzione](#introduction)
+  2. [Variabili](#variables)
+     * [Utilizzare nomi di variabili significativi e pronunciabili](#use-meaningful-and-pronounceable-variable-names)
+     * [Utilizzare lo stesso vocabolario per lo stesso tipo di variabile](#use-the-same-vocabulary-for-the-same-type-of-variable)
+     * [Utilizzare nomi ricercabili (parte 1)](#use-searchable-names-part-1)
+     * [Utilizzare nomi ricercabili (parte 2)](#use-searchable-names-part-2)
+     * [Utilizzare variabili esplicative](#use-explanatory-variables)
+     * [Evitare di annidarsi troppo profondamente (parte 1)](#avoid-nesting-too-deeply-and-return-early-part-1)
+     * [Evitare di annidarsi troppo profondamente (parte 2)](#avoid-nesting-too-deeply-and-return-early-part-2)
+     * [Evitare la mappatura mentale](#avoid-mental-mapping)
+     * [Non aggiungere un contesto non necessario](#dont-add-unneeded-context)
+  3. [Confronto](#comparison)
+     * [Usare un confronto identico](#use-identical-comparison)
+     * [Operatore Null coalescing](#null-coalescing-operator)
+  4. [Funzioni](#functions)
+     * [Utilizzare argomenti predefiniti invece di cortocircuiti o condizionali](#use-default-arguments-instead-of-short-circuiting-or-conditionals)
+     * [Argomenti della funzione (idealmente 2 o meno)](#function-arguments-2-or-fewer-ideally)
+     * [I nomi delle funzioni dovrebbero dire cosa fanno](#function-names-should-say-what-they-do)
+     * [Le funzioni dovrebbero essere solo un livello di astrazione](#functions-should-only-be-one-level-of-abstraction)
+     * [Non utilizzare flag come parametri di funzione](#dont-use-flags-as-function-parameters)
+     * [Evitare gli effetti collaterali](#avoid-side-effects)
+     * [Non scrivere nelle funzioni gloabli](#dont-write-to-global-functions)
+     * [Non utilizzare un Singleton pattern](#dont-use-a-singleton-pattern)
+     * [Incapsulare condizionali](#encapsulate-conditionals)
+     * [Evitare condizionali negativi](#avoid-negative-conditionals)
+     * [Evitare conditionali](#avoid-conditionals)
+     * [Evitare il controllo dei tipi (parte 1)](#avoid-type-checking-part-1)
+     * [Evitare il controllo dei tipi (parte 2)](#avoid-type-checking-part-2)
+     * [Rimuovere il codice morto](#remove-dead-code)
+  5. [Oggetti e strutture dati](#objects-and-data-structures)
+     * [Utilizzare l'incapsulamente degli oggetti](#use-object-encapsulation)
+     * [Fare in modo che gli oggetti abbiano membri privati/protetti](#make-objects-have-privateprotected-members)
+  6. [Classi](#classes)
+     * [Preferire la composizione all'ereditarietà](#prefer-composition-over-inheritance)
+     * [Evitare interfacce fluide](#avoid-fluent-interfaces)
+     * [Preferire classi final](#prefer-final-classes)
   7. [SOLID](#solid)
      * [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
      * [Open/Closed Principle (OCP)](#openclosed-principle-ocp)
@@ -45,44 +45,42 @@
      * [Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
      * [Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
   8. [Don’t repeat yourself (DRY)](#dont-repeat-yourself-dry)
-  9. [Translations](#translations)
+  9. [Traduzioni](#translations)
 
-## Introduction
+## Introduzione
 
-Software engineering principles, from Robert C. Martin's book
+Principi di ingengeria del software, dal libro di Robert C. Martin
 [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882),
-adapted for PHP. This is not a style guide. It's a guide to producing
-readable, reusable, and refactorable software in PHP.
+adattato per PHP. Questa non è una guida di stile. È una guida per produrre
+software leggibile, riutilizzabile e rifattorizzabile in PHP.
 
-Not every principle herein has to be strictly followed, and even fewer will be universally
-agreed upon. These are guidelines and nothing more, but they are ones codified over many
-years of collective experience by the authors of *Clean Code*.
+Non tutti i principi qui contenuti devono essere seguiti rigorosamente, e ancora meno saranno universalmente d'accordo. Queste sono linee guida e niente di più, ma sono quelle codificate in molti anni di esperienza collettiva dagli autori di *Clean Code*.
 
-Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript).
+Ispirato da [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript).
 
-Although many developers still use PHP 5, most of the examples in this article only work with PHP 7.1+.
+Anche se molti sviluppatori utilizzano ancora PHP 5, la maggior parte degli esempi in questo articolo funziona solo con PHP 7.1+.
 
-## Variables
+## Variabili
 
-### Use meaningful and pronounceable variable names
+### Utilizzare nomi di variabili significativi e pronunciabili
 
-**Bad:**
+**Male:**
 
 ```php
 $ymdstr = $moment->format('y-m-d');
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 $currentDate = $moment->format('y-m-d');
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#tabella-dei-contenuti)**
 
-### Use the same vocabulary for the same type of variable
+### Utilizzare lo stesso vocabolario per lo stesso tipo di variabile
 
-**Bad:**
+**Male:**
 
 ```php
 getUserInfo();
@@ -91,55 +89,53 @@ getUserRecord();
 getUserProfile();
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 getUser();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Use searchable names (part 1)
+### Utilizzare nomi ricercabili (parte 1)
 
-We will read more code than we will ever write. It's important that the code we do write is
-readable and searchable. By *not* naming variables that end up being meaningful for
-understanding our program, we hurt our readers.
-Make your names searchable.
+Leggeremo più codice di quanto ne scriveremo. È importante che il codice che scriviamo sia leggibile e ricercabile. Non utilizzando nomi delle variabili significativi per la comprensione del nostro programma danneggiamo i nostri lettori.
+Rendete i vostri nomi ricercabili.
 
-**Bad:**
+**Male:**
 
 ```php
-// What the heck is 448 for?
+// A che cosa serve il 448?
 $result = $serializer->serialize($data, 448);
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 $json = $serializer->serialize($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 ```
 
-### Use searchable names (part 2)
+### Utilizzare nomi ricercabili (parte 2)
 
-**Bad:**
+**Male:**
 
 ```php
 class User
 {
-    // What the heck is 7 for?
+    // A cosa serve il 7?
     public $access = 7;
 }
 
-// What the heck is 4 for?
+// A cosa serve il 4?
 if ($user->access & 4) {
     // ...
 }
 
-// What's going on here?
+// Cosa succede qui?
 $user->access ^= 2;
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 class User
@@ -152,23 +148,23 @@ class User
 
     public const ACCESS_DELETE = 8;
 
-    // User as default can read, create and update something
+    // L'utente come predefinito può leggere, creare e aggiornare qualcosa
     public $access = self::ACCESS_READ | self::ACCESS_CREATE | self::ACCESS_UPDATE;
 }
 
 if ($user->access & User::ACCESS_UPDATE) {
-    // do edit ...
+    // modificare ...
 }
 
-// Deny access rights to create something
+// Nega i diritti di accesso per creare qualcosa
 $user->access ^= User::ACCESS_CREATE;
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Use explanatory variables
+### Utilizzare variabili esplicative
 
-**Bad:**
+**Male:**
 
 ```php
 $address = 'One Infinite Loop, Cupertino 95014';
@@ -178,9 +174,9 @@ preg_match($cityZipCodeRegex, $address, $matches);
 saveCityZipCode($matches[1], $matches[2]);
 ```
 
-**Not bad:**
+**Non male:**
 
-It's better, but we are still heavily dependent on regex.
+È meglio, ma siamo ancora pesantemente dipendenti dalla regex.
 
 ```php
 $address = 'One Infinite Loop, Cupertino 95014';
@@ -191,9 +187,9 @@ preg_match($cityZipCodeRegex, $address, $matches);
 saveCityZipCode($city, $zipCode);
 ```
 
-**Good:**
+**Bene:**
 
-Decrease dependence on regex by naming subpatterns.
+Diminuire la dipendenza dalla regex nominando le subpatterns.
 
 ```php
 $address = 'One Infinite Loop, Cupertino 95014';
@@ -203,14 +199,14 @@ preg_match($cityZipCodeRegex, $address, $matches);
 saveCityZipCode($matches['city'], $matches['zipCode']);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Avoid nesting too deeply and return early (part 1)
+### Evitare di annidarsi troppo profondamente (parte 1)
 
-Too many if-else statements can make your code hard to follow. Explicit is better
-than implicit.
+Troppe dichiarazioni if-else possono rendere il vostro codice difficile da seguire. Esplicito è meglio
+che implicito.
 
-**Bad:**
+**Male:**
 
 ```php
 function isShopOpen($day): bool
@@ -233,7 +229,7 @@ function isShopOpen($day): bool
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 function isShopOpen(string $day): bool
@@ -248,11 +244,11 @@ function isShopOpen(string $day): bool
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Avoid nesting too deeply and return early (part 2)
+### Evitare di annidarsi troppo profondamente (parte 2)
 
-**Bad:**
+**Male:**
 
 ```php
 function fibonacci(int $n)
@@ -270,7 +266,7 @@ function fibonacci(int $n)
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 function fibonacci(int $n): int
@@ -287,14 +283,14 @@ function fibonacci(int $n): int
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Avoid Mental Mapping
+### Evitare la mappatura mentale
 
-Don’t force the reader of your code to translate what the variable means.
-Explicit is better than implicit.
+Non forzate il lettore del vostro codice a tradurre il significato della variabile.
+Esplicito è meglio di implicito.
 
-**Bad:**
+**Male:**
 
 ```php
 $l = ['Austin', 'New York', 'San Francisco'];
@@ -311,7 +307,7 @@ for ($i = 0; $i < count($l); $i++) {
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 $locations = ['Austin', 'New York', 'San Francisco'];
@@ -326,14 +322,14 @@ foreach ($locations as $location) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Don't add unneeded context
+### Non aggiungere un contesto non necessario
 
-If your class/object name tells you something, don't repeat that in your
-variable name.
+Se il nome della vostra classe/oggetto vi dice qualcosa, non ripetetelo nel vostro
+nome della variabile.
 
-**Bad:**
+**Male:**
 
 ```php
 class Car
@@ -348,7 +344,7 @@ class Car
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 class Car
@@ -363,50 +359,50 @@ class Car
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-## Comparison
+## Confronto
 
-### Use [identical comparison](http://php.net/manual/en/language.operators.comparison.php)
+### Usare un confronto identico [confronto identico](http://php.net/manual/en/language.operators.comparison.php)
 
-**Not good:**
+**Non male:**
 
-The simple comparison will convert the string in an integer.
+Il confronto semplice convertirà la stringa in un intero.
 
 ```php
 $a = '42';
 $b = 42;
 
 if ($a != $b) {
-    // The expression will always pass
+    // L'espressione passerà sempre
 }
 ```
 
-The comparison `$a != $b` returns `FALSE` but in fact it's `TRUE`!
-The string `42` is different than the integer `42`.
+Il confronto `$a != $b` restituisce `FALSE` ma in realtà è `TRUE`!
+La stringa `42` è diversa dall'intero `42`.
 
-**Good:**
+**Bene:**
 
-The identical comparison will compare type and value.
+Il confronto identico confronta il tipo e il valore.
 
 ```php
 $a = '42';
 $b = 42;
 
 if ($a !== $b) {
-    // The expression is verified
+    // L'espressione è verificata
 }
 ```
 
-The comparison `$a !== $b` returns `TRUE`.
+Il confronto `$a !== $b` restituisce `TRUE`.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Null coalescing operator
+### Operatore Null coalescing
 
-Null coalescing is a new operator [introduced in PHP 7](https://www.php.net/manual/en/migration70.new-features.php). The null coalescing operator `??` has been added as syntactic sugar for the common case of needing to use a ternary in conjunction with `isset()`. It returns its first operand if it exists and is not `null`; otherwise it returns its second operand.
+Il Null coalescing è un nuovo operatore [introdotto in PHP 7](https://www.php.net/manual/en/migration70.new-features.php). L'operatore di null coalescing `??` è stato aggiunto come syntactic sugar per il caso comune di dover utilizzare un ternario assieme a `isset()`. Restituisce il suo primo operando se esiste e non è `null`; altrimenti restituisce il suo secondo operando.
 
-**Bad:**
+**Male:**
 
 ```php
 if (isset($_GET['name'])) {
@@ -418,20 +414,20 @@ if (isset($_GET['name'])) {
 }
 ```
 
-**Good:**
+**Bene:**
 ```php
 $name = $_GET['name'] ?? $_POST['name'] ?? 'nobody';
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-## Functions
+## Funzioni
 
-### Use default arguments instead of short circuiting or conditionals
+### Utilizzare argomenti predefiniti invece di cortocircuiti o condizionali
 
-**Not good:**
+**Non male:**
 
-This is not good because `$breweryName` can be `NULL`.
+Questo non va bene perché `$breweryName` può essere `NULL`.
 
 ```php
 function createMicrobrewery($breweryName = 'Hipster Brew Co.'): void
@@ -440,9 +436,9 @@ function createMicrobrewery($breweryName = 'Hipster Brew Co.'): void
 }
 ```
 
-**Not bad:**
+**Non male:**
 
-This opinion is more understandable than the previous version, but it better controls the value of the variable.
+Questa opinione è più comprensibile della versione precedente, ma controlla meglio il valore della variabile.
 
 ```php
 function createMicrobrewery($name = null): void
@@ -452,9 +448,9 @@ function createMicrobrewery($name = null): void
 }
 ```
 
-**Good:**
+**Bene:**
 
- You can use [type hinting](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) and be sure that the `$breweryName` will not be `NULL`.
+Puoi usare il [type hinting](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) ed essere sicuro che `$breweryName` non sarà `NULL`.
 
 ```php
 function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
@@ -463,20 +459,16 @@ function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Function arguments (2 or fewer ideally)
+### Argomenti della funzione (idealmente 2 o meno)
 
-Limiting the amount of function parameters is incredibly important because it makes
-testing your function easier. Having more than three leads to a combinatorial explosion
-where you have to test tons of different cases with each separate argument.
+Limitare la quantità di parametri della funzione è incredibilmente importante perché rende più facile testare la vostra funzione. Avere più di tre parametri porta ad un'esplosione combinatoria dove dovete testare tonnellate di casi diversi con ogni argomento separato.
 
-Zero arguments is the ideal case. One or two arguments is ok, and three should be avoided.
-Anything more than that should be consolidated. Usually, if you have more than two
-arguments then your function is trying to do too much. In cases where it's not, most
-of the time a higher-level object will suffice as an argument.
+Zero argomenti è il caso ideale. Uno o due argomenti vanno bene, e tre dovrebbero essere evitati. 
+Qualsiasi cosa più di questo dovrebbe essere consolidata. Di solito, se avete più di due argomenti allora la vostra funzione sta cercando di fare troppo. Nei casi in cui non lo è, la maggior parte delle volte un oggetto di livello superiore sarà sufficiente come argomento.
 
-**Bad:**
+**Male:**
 
 ```php
 class Questionnaire
@@ -496,7 +488,7 @@ class Questionnaire
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 class Name
@@ -559,11 +551,11 @@ class Questionnaire
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Function names should say what they do
+### I nomi delle funzioni dovrebbero dire cosa fanno
 
-**Bad:**
+**Male:**
 
 ```php
 class Email
@@ -577,11 +569,11 @@ class Email
 }
 
 $message = new Email(...);
-// What is this? A handle for the message? Are we writing to a file now?
+// Che cos'è questo? Un handle per il messaggio? Stiamo scrivendo su un file?
 $message->handle();
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 class Email
@@ -595,19 +587,17 @@ class Email
 }
 
 $message = new Email(...);
-// Clear and obvious
+// Chiaro ed evidente
 $message->send();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Functions should only be one level of abstraction
+### Le funzioni dovrebbero essere solo un livello di astrazione
 
-When you have more than one level of abstraction your function is usually
-doing too much. Splitting up functions leads to reusability and easier
-testing.
+Quando avete più di un livello di astrazione la vostra funzione solitamente sta facendo troppo. Dividere le funzioni porta alla riusabilità e test più semplici da effettuare.
 
-**Bad:**
+**Male:**
 
 ```php
 function parseBetterPHPAlternative(string $code): void
@@ -635,9 +625,9 @@ function parseBetterPHPAlternative(string $code): void
 }
 ```
 
-**Bad too:**
+**Anche male:**
 
-We have carried out some of the functionality, but the `parseBetterPHPAlternative()` function is still very complex and not testable.
+Abbiamo realizzato alcune funzionalità, ma la funzione `parseBetterPHPAlternative()` è ancora molto complessa e non testabile.
 
 ```php
 function tokenize(string $code): array
@@ -677,9 +667,9 @@ function parseBetterPHPAlternative(string $code): void
 }
 ```
 
-**Good:**
+**Bene:**
 
-The best solution is move out the dependencies of `parseBetterPHPAlternative()` function.
+La soluzione migliore è spostare le dipendenze della funzione `parseBetterPHPAlternative()`.
 
 ```php
 class Tokenizer
@@ -737,15 +727,15 @@ class BetterPHPAlternative
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Don't use flags as function parameters
+### Non utilizzare flag come parametri di funzione
 
-Flags tell your user that this function does more than one thing. Functions should
-do one thing. Split out your functions if they are following different code paths
-based on a boolean.
+I flag dicono all'utente che questa funzione fa più di una cosa. Le funzioni dovrebbero
+fare una sola cosa. Dividete le vostre funzioni se seguono percorsi di codice diversi
+sulla base di un booleano.
 
-**Bad:**
+**Male:**
 
 ```php
 function createFile(string $name, bool $temp = false): void
@@ -758,7 +748,7 @@ function createFile(string $name, bool $temp = false): void
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 function createFile(string $name): void
@@ -772,25 +762,18 @@ function createTempFile(string $name): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
-### Avoid Side Effects
+### Evitare gli effetti collaterali
 
-A function produces a side effect if it does anything other than take a value in and
-return another value or values. A side effect could be writing to a file, modifying
-some global variable, or accidentally wiring all your money to a stranger.
+Una funzione produce un effetto collaterale se non fa altro che prendere un valore e
+restituire uno o più valori. Un effetto collaterale potrebbe essere scrivere su un file, modificare qualche variabile globale, o trasferire accidentalmente tutti i vostri soldi ad un estraneo.
 
-Now, you do need to have side effects in a program on occasion. Like the previous
-example, you might need to write to a file. What you want to do is to centralize where
-you are doing this. Don't have several functions and classes that write to a particular
-file. Have one service that does it. One and only one.
+Ora, è necessario avere effetti collaterali in un programma delle volte. Come nell'esempio precedente esempio, potreste aver bisogno di scrivere su un file. Quello che volete fare è centralizzare dove state facendo questo. Non avere diverse funzioni e classi che scrivono su un particolare file. Abbiate un solo servizio che lo faccia. Uno e uno solo.
 
-The main point is to avoid common pitfalls like sharing state between objects without
-any structure, using mutable data types that can be written to by anything, and not
-centralizing where your side effects occur. If you can do this, you will be happier
-than the vast majority of other programmers.
+Il punto principale è quello di evitare trabocchetti comuni come la condivisione di stato tra oggetti senza struttura, usare tipi di dati mutabili che possono essere scritti da qualsiasi cosa e non centralizzare dove si verificano gli effetti collaterali. Se riuscite a fare questo, sarete più felici della stragrande maggioranza degli altri programmatori.
 
-**Bad:**
+**Male:**
 
 ```php
 // Global variable referenced by following function.
@@ -810,7 +793,7 @@ var_dump($name);
 // ['Ryan', 'McDermott'];
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 function splitIntoFirstAndLastName(string $name): array
@@ -828,7 +811,7 @@ var_dump($newName);
 // ['Ryan', 'McDermott'];
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Don't write to global functions
 
@@ -879,7 +862,7 @@ $configuration = new Configuration([
 
 And now you must use instance of `Configuration` in your application.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Don't use a Singleton pattern
 
@@ -940,7 +923,7 @@ $connection = new DBConnection($dsn);
 
 And now you must use instance of `DBConnection` in your application.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Encapsulate conditionals
 
@@ -960,7 +943,7 @@ if ($article->isPublished()) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Avoid negative conditionals
 
@@ -990,7 +973,7 @@ if (isDOMNodePresent($node)) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Avoid conditionals
 
@@ -1065,7 +1048,7 @@ class Cessna implements Airplane
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Avoid type-checking (part 1)
 
@@ -1096,7 +1079,7 @@ function travelToTexas(Vehicle $vehicle): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Avoid type-checking (part 2)
 
@@ -1132,7 +1115,7 @@ function combine(int $val1, int $val2): int
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Remove dead code
 
@@ -1169,7 +1152,7 @@ $request = requestModule($requestUrl);
 inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 
 ## Objects and Data Structures
@@ -1245,7 +1228,7 @@ $bankAccount->withdraw($shoesPrice);
 $balance = $bankAccount->getBalance();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Make objects have private/protected members
 
@@ -1298,7 +1281,7 @@ $employee = new Employee('John Doe');
 echo 'Employee name: ' . $employee->getName();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ## Classes
 
@@ -1401,7 +1384,7 @@ class Employee
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Avoid fluent interfaces
 
@@ -1509,7 +1492,7 @@ $car->setModel('F-150');
 $car->dump();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Prefer final classes
 
@@ -1574,7 +1557,7 @@ final class Car implements Vehicle
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ## SOLID
 
@@ -1662,7 +1645,7 @@ class UserSettings
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Open/Closed Principle (OCP)
 
@@ -1776,7 +1759,7 @@ class HttpRequester
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Liskov Substitution Principle (LSP)
 
@@ -1905,7 +1888,7 @@ foreach ($shapes as $shape) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Interface Segregation Principle (ISP)
 
@@ -1996,7 +1979,7 @@ class RobotEmployee implements Workable
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ### Dependency Inversion Principle (DIP)
 
@@ -2088,7 +2071,7 @@ class Manager
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ## Don’t repeat yourself (DRY)
 
@@ -2172,7 +2155,7 @@ function showList(array $employees): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
 
 ## Translations
 
@@ -2200,4 +2183,4 @@ This is also available in other languages:
 * :iran: **Persian:**
      * [amirshnll/clean-code-php](https://github.com/amirshnll/clean-code-php)
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ torna all'inizio](#table-of-contents)**
