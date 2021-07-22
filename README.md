@@ -813,15 +813,13 @@ var_dump($newName);
 
 **[⬆ torna all'inizio](#table-of-contents)**
 
-### Don't write to global functions
+### Non scrivere nelle funzioni gloabli
 
-Polluting globals is a bad practice in many languages because you could clash with another
-library and the user of your API would be none-the-wiser until they get an exception in
-production. Let's think about an example: what if you wanted to have configuration array?
-You could write global function like `config()`, but it could clash with another library
-that tried to do the same thing.
+Inquinare i globali è una cattiva pratica in molti linguaggi perché potreste scontrarvi con un'altra libreria e l'utente della vostra API non si accorgerebbe di nulla fino a quando non otterrebbe un'eccezione in produzione. 
+Pensiamo ad un esempio: e se voleste avere un array di configurazione?
+Potreste scrivere una funzione globale come `config()`, ma potrebbe scontrarsi con un'altra libreria che ha cercato di fare la stessa cosa.
 
-**Bad:**
+**Male:**
 
 ```php
 function config(): array
@@ -832,7 +830,7 @@ function config(): array
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 class Configuration
@@ -852,7 +850,7 @@ class Configuration
 }
 ```
 
-Load configuration and create instance of `Configuration` class
+Carica la configurazione e crea un'istanza della classe `Configuration`.
 
 ```php
 $configuration = new Configuration([
@@ -860,21 +858,21 @@ $configuration = new Configuration([
 ]);
 ```
 
-And now you must use instance of `Configuration` in your application.
+E ora dovete usare un'istanza di `Configuration` nella vostra applicazione.
 
 **[⬆ torna all'inizio](#table-of-contents)**
 
-### Don't use a Singleton pattern
+### Non utilizzare un Singleton pattern
 
-Singleton is an [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern). Paraphrased from Brian Button:
- 1. They are generally used as a **global instance**, why is that so bad? Because **you hide the dependencies** of your application in your code, instead of exposing them through the interfaces. Making something global to avoid passing it around is a [code smell](https://en.wikipedia.org/wiki/Code_smell).
- 2. They violate the [single responsibility principle](#single-responsibility-principle-srp): by virtue of the fact that **they control their own creation and lifecycle**.
- 3. They inherently cause code to be tightly [coupled](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29). This makes faking them out under **test rather difficult** in many cases.
- 4. They carry state around for the lifetime of the application. Another hit to testing since **you can end up with a situation where tests need to be ordered** which is a big no for unit tests. Why? Because each unit test should be independent from the other.
+Il Singleton è un [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern). Parafrasando Brian Button:
+ 1. Sono generalmente usati come **istanza globale**. Perché è così cattiva come cosa? Perché **nascondete le dipendenze** della vostra applicazione nel vostro codice, invece di esporle attraverso le interfacce. Rendere qualcosa globale per evitare di passarlo in giro è un [code smell](https://en.wikipedia.org/wiki/Code_smell).
+ 2. Violano il [single responsibility principle](#single-responsibility-principle-srp): in virtù del fatto che **controllano la propria creazione e il proprio ciclo di vita**.
+ 3. Essi causano intrinsecamente un codice strettamente [accoppiato] (https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29). Questo rende i **test piuttosto difficili** in molti casi.
+ 4. Si portano dietro lo stato per tutta la durata dell'applicazione. Un altro colpo ai test poiché **si può finire con una situazione in cui i test devono essere ordinati** che è un gran problema per i test unitari. Perché? Perché ogni test unitario dovrebbe essere indipendente dall'altro.
 
-There is also very good thoughts by [Misko Hevery](http://misko.hevery.com/about/) about the [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/).
+Ci sono anche ottime riflessioni di [Misko Hevery](http://misko.hevery.com/about/) su [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/).
 
-**Bad:**
+**Male:**
 
 ```php
 class DBConnection
@@ -901,7 +899,7 @@ class DBConnection
 $singleton = DBConnection::getInstance();
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 class DBConnection
@@ -915,19 +913,19 @@ class DBConnection
 }
 ```
 
-Create instance of `DBConnection` class and configure it with [DSN](http://php.net/manual/en/pdo.construct.php#refsect1-pdo.construct-parameters).
+Crea un'istanza della classe `DBConnection` e configurarla con [DSN](http://php.net/manual/en/pdo.construct.php#refsect1-pdo.construct-parameters).
 
 ```php
 $connection = new DBConnection($dsn);
 ```
 
-And now you must use instance of `DBConnection` in your application.
+E ora dovete usare un'istanza di `DBConnection` nella vostra applicazione.
 
 **[⬆ torna all'inizio](#table-of-contents)**
 
-### Encapsulate conditionals
+### Incapsulare condizionali
 
-**Bad:**
+**Male:**
 
 ```php
 if ($article->state === 'published') {
@@ -935,7 +933,7 @@ if ($article->state === 'published') {
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 if ($article->isPublished()) {
@@ -945,9 +943,9 @@ if ($article->isPublished()) {
 
 **[⬆ torna all'inizio](#table-of-contents)**
 
-### Avoid negative conditionals
+### Evitare condizionali negativi
 
-**Bad:**
+**Male:**
 
 ```php
 function isDOMNodeNotPresent(DOMNode $node): bool
@@ -960,7 +958,7 @@ if (! isDOMNodeNotPresent($node)) {
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 function isDOMNodePresent(DOMNode $node): bool
@@ -975,18 +973,14 @@ if (isDOMNodePresent($node)) {
 
 **[⬆ torna all'inizio](#table-of-contents)**
 
-### Avoid conditionals
+### Evitare conditionali
 
-This seems like an impossible task. Upon first hearing this, most people say,
-"how am I supposed to do anything without an `if` statement?" The answer is that
-you can use polymorphism to achieve the same task in many cases. The second
-question is usually, "well that's great but why would I want to do that?" The
-answer is a previous clean code concept we learned: a function should only do
-one thing. When you have classes and functions that have `if` statements, you
-are telling your user that your function does more than one thing. Remember,
-just do one thing.
+Questo sembra un compito impossibile. Al primo sentire, la maggior parte delle persone dice,"come posso fare qualcosa senza una dichiarazione `if`? La risposta è che
+si può usare il polimorfismo per ottenere lo stesso compito in molti casi. La seconda
+domanda è di solito, "beh, è fantastico, ma perché dovrei volerlo fare? La
+risposta è un precedente concetto di codice pulito che abbiamo imparato: una funzione dovrebbe fare una sola cosa. Quando avete classi e funzioni che hanno dichiarazioni `if`, state dicendo al vostro utente che la vostra funzione fa più di una cosa. Ricordate, fate solo una cosa.
 
-**Bad:**
+**Male:**
 
 ```php
 class Airplane
@@ -1007,7 +1001,7 @@ class Airplane
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 interface Airplane
@@ -1050,14 +1044,13 @@ class Cessna implements Airplane
 
 **[⬆ torna all'inizio](#table-of-contents)**
 
-### Avoid type-checking (part 1)
+### Evitare il controllo dei tipi (parte 1)
 
-PHP is untyped, which means your functions can take any type of argument.
-Sometimes you are bitten by this freedom and it becomes tempting to do
-type-checking in your functions. There are many ways to avoid having to do this.
-The first thing to consider is consistent APIs.
+PHP non è tipizzato, il che significa che le vostre funzioni possono prendere qualsiasi tipo di argomento. A volte si è morsi da questa libertà e si è tentati di fare
+il controllo dei tipi nelle vostre funzioni. Ci sono molti modi per evitare di doverlo fare.
+La prima cosa da considerare sono le API coerenti.
 
-**Bad:**
+**Male:**
 
 ```php
 function travelToTexas($vehicle): void
@@ -1070,7 +1063,7 @@ function travelToTexas($vehicle): void
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 function travelToTexas(Vehicle $vehicle): void
@@ -1081,19 +1074,17 @@ function travelToTexas(Vehicle $vehicle): void
 
 **[⬆ torna all'inizio](#table-of-contents)**
 
-### Avoid type-checking (part 2)
+### Evitare il controllo dei tipi (parte 2)
 
-If you are working with basic primitive values like strings, integers, and arrays,
-and you use PHP 7+ and you can't use polymorphism but you still feel the need to
-type-check, you should consider
-[type declaration](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration)
-or strict mode. It provides you with static typing on top of standard PHP syntax.
-The problem with manually type-checking is that doing it will require so much
-extra verbiage that the faux "type-safety" you get doesn't make up for the lost
-readability. Keep your PHP clean, write good tests, and have good code reviews.
-Otherwise, do all of that but with PHP strict type declaration or strict mode.
+Se state lavorando con valori primitivi di base come stringhe, interi e array,
+e usate PHP 7+ e non potete usare il polimorfismo ma sentite ancora il bisogno di
+controllare il tipo, dovreste considerare
+[dichiarazione del tipo](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) o la modalità strict. 
+Essa vi fornisce una tipizzazione statica sopra la sintassi standard di PHP.
+Il problema con il controllo manuale dei tipi è che richiede così tanta verbosità extra che la finta "sicurezza dei tipi" che si ottiene non compensa la perdita di leggibilità del codice. Mantenete il vostro PHP pulito, scrivete buoni test e fate buone revisioni del codice.
+Altrimenti fate tutto questo ma con PHP strict type declaration o strict mode.
 
-**Bad:**
+**Male:**
 
 ```php
 function combine($val1, $val2): int
@@ -1106,7 +1097,7 @@ function combine($val1, $val2): int
 }
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 function combine(int $val1, int $val2): int
@@ -1117,13 +1108,13 @@ function combine(int $val1, int $val2): int
 
 **[⬆ torna all'inizio](#table-of-contents)**
 
-### Remove dead code
+### Rimuovere il codice morto
 
-Dead code is just as bad as duplicate code. There's no reason to keep it in
-your codebase. If it's not being called, get rid of it! It will still be safe
-in your version history if you still need it.
+Il codice morto è brutto tanto quanto il codice duplicato. Non c'è ragione di tenerlo nel
+nella vostra codebase. Se non viene chiamato, liberatevene! Sarà ancora al sicuro
+nella vostra cronologia delle versioni se ne avete ancora bisogno.
 
-**Bad:**
+**Male:**
 
 ```php
 function oldRequestModule(string $url): void
@@ -1140,7 +1131,7 @@ $request = newRequestModule($requestUrl);
 inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 function requestModule(string $url): void
