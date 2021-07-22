@@ -1146,25 +1146,24 @@ inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 **[⬆ torna all'inizio](#table-of-contents)**
 
 
-## Objects and Data Structures
+## Oggetti e strutture dati
 
-### Use object encapsulation
+### Utilizzare l'incapsulamente degli oggetti
 
-In PHP you can set `public`, `protected` and `private` keywords for methods.
-Using it, you can control properties modification on an object.
+In PHP potete impostare le parole chiave `public`, `protected` e `private` per i metodi.
+Usandole, potete controllare la modifica delle proprietà di un oggetto.
 
-* When you want to do more beyond getting an object property, you don't have
-to look up and change every accessor in your codebase.
-* Makes adding validation simple when doing a `set`.
-* Encapsulates the internal representation.
-* Easy to add logging and error handling when getting and setting.
-* Inheriting this class, you can override default functionality.
-* You can lazy load your object's properties, let's say getting it from a
-server.
+* Quando si vuole fare di più che ottenere una proprietà di un oggetto, non si deve
+cercare e cambiare ogni accessor nel tuo codice.
+* Rende semplice l'aggiunta della validazione quando si fa un `set`.
+* Incapsula la rappresentazione interna.
+* Semplice da aggiungere il logging e gestione errori quando si fa un get o un set.
+* Ereditando questa classe, puoi sovrascrivere le funzionalità predefinite.
+* Puoi caricare in modo lazy le proprietà del tuo oggetto, per esempio prendendolo da un server.
 
-Additionally, this is part of [Open/Closed](#openclosed-principle-ocp) principle.
+Inoltre, questo fa parte del principio [Open/Closed](#openclosed-principle-ocp).
 
-**Bad:**
+**Male:**
 
 ```php
 class BankAccount
@@ -1178,7 +1177,7 @@ $bankAccount = new BankAccount();
 $bankAccount->balance -= 100;
 ```
 
-**Good:**
+**Bene:**
 
 ```php
 class BankAccount
@@ -1221,7 +1220,7 @@ $balance = $bankAccount->getBalance();
 
 **[⬆ torna all'inizio](#table-of-contents)**
 
-### Make objects have private/protected members
+### Fare in modo che gli oggetti abbiano membri privati/protetti
 
 * `public` methods and properties are most dangerous for changes, because some outside code may easily rely on them and you can't control what code relies on them. **Modifications in class are dangerous for all users of class.**
 * `protected` modifier are as dangerous as public, because they are available in scope of any child class. This effectively means that difference between public and protected is only in access mechanism, but encapsulation guarantee remains the same. **Modifications in class are dangerous for all descendant classes.**
