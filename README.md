@@ -363,7 +363,7 @@ class Car
 
 ## Confronto
 
-### Usare un confronto identico [confronto identico](http://php.net/manual/en/language.operators.comparison.php)
+### Usare un [confronto identico](http://php.net/manual/en/language.operators.comparison.php)
 
 **Non male:**
 
