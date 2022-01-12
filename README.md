@@ -1490,7 +1490,7 @@ The `final` keyword should be used whenever possible:
 
 1. It prevents an uncontrolled inheritance chain.
 2. It encourages [composition](#prefer-composition-over-inheritance).
-3. It encourages the [Single Responsibility Pattern](#single-responsibility-principle-srp).
+3. It encourages the [Single Responsibility Principle](#single-responsibility-principle-srp).
 4. It encourages developers to use your public methods instead of extending the class to get access to protected ones.
 5. It allows you to change your code without breaking applications that use your class.
 
@@ -2164,13 +2164,17 @@ This is also available in other languages:
    * [panuwizzle/clean-code-php](https://github.com/panuwizzle/clean-code-php)
 * :fr: **French:**
    * [errorname/clean-code-php](https://github.com/errorname/clean-code-php)
-* :vietnam: **Vietnamese**
+* :vietnam: **Vietnamese:**
    * [viethuongdev/clean-code-php](https://github.com/viethuongdev/clean-code-php)
 * :kr: **Korean:**
    * [yujineeee/clean-code-php](https://github.com/yujineeee/clean-code-php)
 * :tr: **Turkish:**
    * [anilozmen/clean-code-php](https://github.com/anilozmen/clean-code-php)
 * :iran: **Persian:**
-     * [amirshnll/clean-code-php](https://github.com/amirshnll/clean-code-php)
+   * [amirshnll/clean-code-php](https://github.com/amirshnll/clean-code-php)
+* :bangladesh: **Bangla:**
+   * [nayeemdev/clean-code-php](https://github.com/nayeemdev/clean-code-php)
+* :egypt: **Arabic:**
+   * [ahmedjoda/clean-code-php](https://github.com/ahmedjoda/clean-code-php)
 
 **[⬆ torna all'inizio](#table-of-contents)**
